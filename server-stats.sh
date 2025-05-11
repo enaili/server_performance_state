@@ -31,4 +31,12 @@ ps -eo pid,comm,%mem --sort=-%mem | head -n 6
 # 6. Stretch goals
 echo ""
 echo "🧩 Additional System Info:"
-echo "OS Version: $(lsb_rel_
+echo "OS Version: $(lsb_release -d | cut -f2)"
+echo "Uptime: $(uptime -p)"
+echo "Load Average: $(uptime | awk -F'load average:' '{print $2}')"
+echo "Logged in users: $(who | wc -l)"
+echo "Failed login attempts:"
+lastb | head -n 5 2>/dev/null || echo "Requires 'lastb' (install syslog/wtmp support)"
+
+echo "-----------------------------------------"
+
